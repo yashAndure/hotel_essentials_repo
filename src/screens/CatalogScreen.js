@@ -1,354 +1,149 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-} from 'react-native';
+import React from "react";
+import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get('window');
-
-const C = {
-  bg: '#111111',
-  surface: '#1a1a1a',
-  card: '#1e1e1e',
-  border: '#2a2a2a',
-  accent: '#e53935',
-  text: '#f0f0f0',
-  textSub: '#888',
-  textMuted: '#555',
-  chip: '#252525',
-};
-
-export default function CatalogScreen() {
-
-  const [activeFilter, setActiveFilter] = useState('All');
-
-  const filters = ['All', 'Kitchen', 'Tableware', 'Linens'];
-
+export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="light-content" backgroundColor={C.bg} />
-
-      {/* Top Nav */}
-      <View style={styles.topBar}>
-        <TouchableOpacity>
-          <Text style={styles.menuIcon}>≡</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.topBarTitle}>Hotel Essential</Text>
-
-        <View style={{ width: 30 }} />
+    <View style={{ flex: 1, backgroundColor: "#0F172A", padding: 15 }}>
+      {/* Header */}
+      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
+        <Image
+          source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }}
+          style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }}
+        />
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: "#fff", fontWeight: "bold" }}>Hotel Essentials</Text>
+          <Text style={{ color: "#94A3B8", fontSize: 12 }}>Find premium inventory</Text>
+        </View>
+        <Ionicons name="notifications-outline" size={22} color="white" />
       </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
+      {/* Search */}
+      <View
+        style={{
+          flexDirection: "row",
+          backgroundColor: "#1E293B",
+          borderRadius: 12,
+          paddingHorizontal: 10,
+          alignItems: "center",
+          marginBottom: 15,
+        }}
       >
+        <Ionicons name="search" size={18} color="#94A3B8" />
+        <TextInput
+          placeholder="Search premium inventory..."
+          placeholderTextColor="#94A3B8"
+          style={{ flex: 1, marginLeft: 10, color: "white" }}
+        />
+      </View>
 
-        {/* Header */}
-        <View style={styles.headerCard}>
-          <View style={styles.headerLeft}>
-            <View style={styles.logoCircle}>
-              <Text style={styles.logoText}>HE</Text>
-            </View>
-
-            <View>
-              <Text style={styles.brandName}>Hotel Essentials</Text>
-              <Text style={styles.brandSub}>ELITE HOSPITALITY SUPPLY</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity>
-            <Text style={styles.bellIcon}>🔔</Text>
+      {/* Filters */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 15 }}>
+        {["All", "Kitchen", "Tableware", "Liners"].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            style={{
+              backgroundColor: index === 0 ? "#EF4444" : "#1E293B",
+              paddingHorizontal: 15,
+              paddingVertical: 8,
+              borderRadius: 20,
+              marginRight: 10,
+            }}
+          >
+            <Text style={{ color: "white" }}>{item}</Text>
           </TouchableOpacity>
-        </View>
+        ))}
+      </ScrollView>
 
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Trending */}
+        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
+          Trending
+        </Text>
 
-        {/* Search */}
-        <View style={styles.searchRow}>
-
-          <View style={styles.searchBar}>
-            <Text style={styles.searchIcon}>⌕</Text>
-
-            <TextInput
-              placeholder="Search premium inventory..."
-              placeholderTextColor={C.textMuted}
-              style={styles.searchInput}
+        <View style={{ flexDirection: "row", marginBottom: 20 }}>
+          {/* Big Card */}
+          <View style={{ flex: 1, marginRight: 10 }}>
+            <Image
+              source={{ uri: "https://images.unsplash.com/photo-1586201375761-83865001e31c" }}
+              style={{ width: "100%", height: 160, borderRadius: 15 }}
             />
-
+            <Text style={{ color: "white", marginTop: 8, fontWeight: "bold" }}>
+              Ovens & Ranges
+            </Text>
+            <Text style={{ color: "#94A3B8", fontSize: 12 }}>
+              Premium professional kitchen
+            </Text>
           </View>
 
-          <TouchableOpacity style={styles.filterBtn}>
-            <Text style={{ color: C.textSub }}>⧉</Text>
-          </TouchableOpacity>
-
+          {/* Side Cards */}
+          <View style={{ flex: 1, justifyContent: "space-between" }}>
+            <View>
+              <Image
+                source={{ uri: "https://images.unsplash.com/photo-1604908176997-4317f6f1e8d1" }}
+                style={{ width: "100%", height: 70, borderRadius: 12 }}
+              />
+              <Text style={{ color: "white", fontSize: 12 }}>Cooking</Text>
+            </View>
+            <View>
+              <Image
+                source={{ uri: "https://images.unsplash.com/photo-1583778176476-4a8b02a64c23" }}
+                style={{ width: "100%", height: 70, borderRadius: 12 }}
+              />
+              <Text style={{ color: "white", fontSize: 12 }}>Cutlery</Text>
+            </View>
+          </View>
         </View>
-
-
-        {/* Filter Chips */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-
-          {filters.map((f) => (
-            <TouchableOpacity
-              key={f}
-              onPress={() => setActiveFilter(f)}
-              style={[
-                styles.chip,
-                activeFilter === f && styles.chipActive,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.chipText,
-                  activeFilter === f && styles.chipTextActive,
-                ]}
-              >
-                {f}
-              </Text>
-            </TouchableOpacity>
-          ))}
-
-        </ScrollView>
-
-
-        {/* Section */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Trending</Text>
-
-          <TouchableOpacity>
-            <Text style={styles.viewReport}>VIEW REPORT</Text>
-          </TouchableOpacity>
-        </View>
-
-
-        {/* Hero Card */}
-        <View style={styles.heroCard}>
-
-          <Text style={styles.heroTitle}>
-            Ovens & Ranges
-          </Text>
-
-          <Text style={styles.heroDesc}>
-            Experience professional grade culinary heat designed
-            for high-volume service.
-          </Text>
-
-        </View>
-
 
         {/* Categories */}
-        <Text style={styles.sectionTitle}>Categories</Text>
+        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
+          Categories
+        </Text>
 
-        <View style={styles.categoryGrid}>
-
-          <View style={styles.categoryItem}>
-            <Text style={styles.categoryEmoji}>♨️</Text>
-            <Text style={styles.categoryLabel}>COOKWARE</Text>
-          </View>
-
-          <View style={styles.categoryItem}>
-            <Text style={styles.categoryEmoji}>💧</Text>
-            <Text style={styles.categoryLabel}>PLUMBING</Text>
-          </View>
-
-          <View style={styles.categoryItem}>
-            <Text style={styles.categoryEmoji}>⚙️</Text>
-            <Text style={styles.categoryLabel}>PREP</Text>
-          </View>
-
-          <View style={styles.categoryItem}>
-            <Text style={styles.categoryEmoji}>🪑</Text>
-            <Text style={styles.categoryLabel}>FURNITURE</Text>
-          </View>
-
+        <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+          {[
+            { name: "Cookware", img: "https://images.unsplash.com/photo-1584990347449-a9f3d1a1e54f" },
+            { name: "Plumbing", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952" },
+            { name: "Prep", img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea" },
+            { name: "Furniture", img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511" },
+            { name: "Apparel", img: "https://images.unsplash.com/photo-1521334884684-d80222895322" },
+          ].map((item, index) => (
+            <View
+              key={index}
+              style={{
+                width: "48%",
+                backgroundColor: "#1E293B",
+                borderRadius: 15,
+                padding: 10,
+                marginBottom: 10,
+              }}
+            >
+              <Image
+                source={{ uri: item.img }}
+                style={{ width: "100%", height: 80, borderRadius: 10 }}
+              />
+              <Text style={{ color: "white", marginTop: 5 }}>{item.name}</Text>
+            </View>
+          ))}
         </View>
-
       </ScrollView>
-    </SafeAreaView>
+
+      {/* Bottom Nav */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          paddingVertical: 10,
+          borderTopWidth: 1,
+          borderTopColor: "#1E293B",
+        }}
+      >
+        <Ionicons name="home" size={22} color="#EF4444" />
+        <Ionicons name="search" size={22} color="#94A3B8" />
+        <Ionicons name="cart" size={22} color="#94A3B8" />
+        <Ionicons name="grid" size={22} color="#94A3B8" />
+        <Ionicons name="person" size={22} color="#94A3B8" />
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-
-  safe: {
-    flex: 1,
-    backgroundColor: C.bg,
-  },
-
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
-
-  menuIcon: {
-    fontSize: 22,
-    color: C.text,
-  },
-
-  topBarTitle: {
-    color: C.text,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  headerCard: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: C.surface,
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 12,
-  },
-
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  logoCircle: {
-    width: 38,
-    height: 38,
-    borderRadius: 20,
-    backgroundColor: C.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
-
-  logoText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-
-  brandName: {
-    color: C.text,
-    fontWeight: 'bold',
-  },
-
-  brandSub: {
-    color: C.textSub,
-    fontSize: 11,
-  },
-
-  bellIcon: {
-    fontSize: 20,
-  },
-
-  searchRow: {
-    flexDirection: 'row',
-    marginBottom: 15,
-  },
-
-  searchBar: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: C.surface,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    alignItems: 'center',
-  },
-
-  searchInput: {
-    flex: 1,
-    color: C.text,
-    marginLeft: 8,
-  },
-
-  searchIcon: {
-    color: C.textSub,
-  },
-
-  filterBtn: {
-    backgroundColor: C.surface,
-    marginLeft: 8,
-    padding: 12,
-    borderRadius: 10,
-  },
-
-  chip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    backgroundColor: C.chip,
-    borderRadius: 20,
-    marginRight: 8,
-  },
-
-  chipActive: {
-    backgroundColor: C.accent,
-  },
-
-  chipText: {
-    color: C.textSub,
-  },
-
-  chipTextActive: {
-    color: 'white',
-  },
-
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 15,
-  },
-
-  sectionTitle: {
-    color: C.text,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  viewReport: {
-    color: C.accent,
-  },
-
-  heroCard: {
-    backgroundColor: C.surface,
-    padding: 20,
-    borderRadius: 12,
-    marginTop: 10,
-  },
-
-  heroTitle: {
-    color: 'white',
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
-
-  heroDesc: {
-    color: C.textSub,
-    marginTop: 5,
-  },
-
-  categoryGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 15,
-  },
-
-  categoryItem: {
-    width: (width - 48) / 2,
-    backgroundColor: C.card,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    marginRight: 10,
-  },
-
-  categoryEmoji: {
-    fontSize: 22,
-    marginBottom: 6,
-  },
-
-  categoryLabel: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-
-});
