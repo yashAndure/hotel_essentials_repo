@@ -3,444 +3,350 @@ import {
 View,
 Text,
 StyleSheet,
+FlatList,
 Image,
+TextInput,
 TouchableOpacity,
-ScrollView,
-TextInput
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function CartScreen(){
+const orders = [
+{
+id:"1",
+orderId:"#ORD-2023-8891",
+date:"Oct 24, 2023",
+title:"Kitchen Essentials Restock",
+status:"Processing",
+amount:"$2,450.00",
+images:[
+"https://images.unsplash.com/photo-1586201375761-83865001e31c",
+"https://images.unsplash.com/photo-1582582429416-1fda2a6a54a2",
+"https://images.unsplash.com/photo-1604908176997-43158e7f3d51"
+],
+extra:"+4"
+},
+{
+id:"2",
+orderId:"#ORD-2023-8752",
+date:"Oct 18, 2023",
+title:"Fine Dining Glassware",
+status:"Shipped",
+amount:"$890.50",
+images:[
+"https://images.unsplash.com/photo-1604908554047-03e8b1f1e3a2",
+"https://images.unsplash.com/photo-1588854337221-4cf9fa96059c"
+]
+},
+{
+id:"3",
+orderId:"#ORD-2023-8100",
+date:"Sep 30, 2023",
+title:"Chef Knives Set",
+status:"Delivered",
+amount:"$1,200.00",
+images:[
+"https://images.unsplash.com/photo-1593618998160-e34014e67546"
+]
+}
+];
 
-return(
+export default function OrdersScreen(){
 
-<SafeAreaView style={styles.container}>
-<ScrollView showsVerticalScrollIndicator={false}>
+const getStatusColor = (status)=>{
+if(status==="Processing") return "#ffb300";
+if(status==="Shipped") return "#3b82f6";
+if(status==="Delivered") return "#22c55e";
+};
 
-{/* Header */}
-<View style={styles.header}>
-
-<View style={styles.brandRow}>
-<View style={styles.logo}>
-<Text style={styles.logoText}>HE</Text>
-</View>
-
-<View>
-<Text style={styles.brand}>Hotel Essentials</Text>
-<Text style={styles.subBrand}>ELITE HOSPITALITY SUPPLY</Text>
-</View>
-</View>
-
-<View style={styles.notification}>
-<Ionicons name="notifications-outline" size={22} color="white"/>
-<View style={styles.dot}/>
-</View>
-
-</View>
-
-
-{/* Cart Title */}
-<View style={styles.cartHeader}>
-
-<View style={styles.cartLeft}>
-<Ionicons name="arrow-back" size={22} color="white"/>
-<Text style={styles.cartTitle}>Cart (3)</Text>
-</View>
-
-<Text style={styles.clear}>Clear</Text>
-
-</View>
-
-
-{/* Item 1 */}
-<CartItem
-image="https://images.unsplash.com/photo-1511920170033-f8396924c348"
-title="Industrial Espresso Machine"
-stock="In Stock"
-model="Model XS500"
-price="$4,200.00"
-qty="1"
-/>
-
-
-{/* Item 2 */}
-<CartItem
-image="https://images.unsplash.com/photo-1585238342024-78d387f4a707"
-title="Commercial Pro Blender"
-stock="In Stock"
-model="3HP Motor"
-price="$850.00"
-qty="2"
-/>
-
-
-{/* Item 3 */}
-<CartItem
-image="https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1"
-title="Table Linens (Pack of 50)"
-stock="Low Stock"
-model="100% Cotton"
-price="$450.00"
-qty="5"
-/>
-
-
-{/* Promo Code */}
-<View style={styles.promoCard}>
-
-<Text style={styles.promoTitle}>
-PURCHASE ORDER / PROMO CODE
-</Text>
-
-<View style={styles.promoRow}>
-
-<TextInput
-placeholder="Enter code"
-placeholderTextColor="#777"
-style={styles.promoInput}
-/>
-
-<TouchableOpacity style={styles.applyBtn}>
-<Text style={styles.applyText}>Apply</Text>
-</TouchableOpacity>
-
-</View>
-
-</View>
-
-
-{/* Price Summary */}
-<View style={styles.summaryCard}>
-
-<View style={styles.row}>
-<Text style={styles.label}>Subtotal</Text>
-<Text style={styles.value}>$8,150.00</Text>
-</View>
-
-<View style={styles.row}>
-<Text style={styles.label}>Tax (8.5%)</Text>
-<Text style={styles.value}>$692.75</Text>
-</View>
-
-<View style={styles.row}>
-<Text style={styles.label}>Delivery Charge</Text>
-<Text style={styles.value}>$150.00</Text>
-</View>
-
-</View>
-
-
-{/* Checkout Button */}
+const renderItem = ({item}) =>(
+<TouchableOpacity activeOpacity={0.85}>
 <LinearGradient
-colors={["#ff4b4b","#d62828"]}
-style={styles.checkoutBtn}
+colors={["rgba(255,255,255,0.08)","rgba(255,255,255,0.02)"]}
+style={styles.card}
 >
 
-<Text style={styles.checkoutText}>
-Review & Checkout
+<View style={styles.topRow}>
+<View>
+<Text style={styles.orderMeta}>
+{item.orderId} • {item.date}
 </Text>
+<Text style={styles.title}>{item.title}</Text>
+</View>
 
-<View style={styles.itemsBadge}>
-<Text style={styles.badgeText}>3 items →</Text>
+<View style={[styles.statusBadge,{backgroundColor:getStatusColor(item.status)}]}>
+<Text style={styles.statusText}>{item.status}</Text>
+</View>
+</View>
+
+<View style={styles.imageRow}>
+{item.images.map((img,index)=>(
+<Image key={index} source={{uri:img}} style={styles.productImage}/>
+))}
+
+{item.extra && (
+<View style={styles.extraBox}>
+<Text style={styles.extraText}>{item.extra}</Text>
+</View>
+)}
+</View>
+
+<View style={styles.divider}/>
+
+<View style={styles.bottomRow}>
+<View>
+<Text style={styles.total}>TOTAL AMOUNT</Text>
+<Text style={styles.amount}>{item.amount}</Text>
+</View>
+
+<TouchableOpacity style={styles.invoiceBtn}>
+<Ionicons name="download-outline" size={18} color="white"/>
+<Text style={styles.invoiceText}>Invoice</Text>
+</TouchableOpacity>
 </View>
 
 </LinearGradient>
-
-<View style={{height:40}}/>
-
-</ScrollView>
-</SafeAreaView>
-
+</TouchableOpacity>
 );
-}
-
-
-function CartItem({image,title,stock,model,price,qty}){
 
 return(
+<SafeAreaView style={styles.container}>
 
-<View style={styles.card}>
+{/* HEADER */}
+<View style={styles.header}>
 
-<Image source={{uri:image}} style={styles.image}/>
+<View style={styles.navBar}>
+<Ionicons name="menu" size={24} color="white" />
 
-<View style={{flex:1}}>
-
-<Text style={styles.itemTitle}>{title}</Text>
-
-<View style={styles.stockRow}>
-<View style={styles.greenDot}/>
-<Text style={styles.stock}>{stock} • {model}</Text>
+<View style={styles.titleContainer}>
+<Text style={styles.brandTitle}>Hotel Essentials</Text>
+<Text style={styles.brandSubtitle}>ELITE HOSPITALITY SUPPLY</Text>
 </View>
 
-<Text style={styles.priceLabel}>PRICE</Text>
-
-<View style={styles.priceRow}>
-
-<Text style={styles.price}>{price}</Text>
-
-<View style={styles.qtyBox}>
-<Text style={styles.qtyBtn}>-</Text>
-<Text style={styles.qty}>{qty}</Text>
-<Text style={styles.qtyBtn}>+</Text>
+<Ionicons name="notifications-outline" size={24} color="white" />
 </View>
 
-</View>
+<View style={styles.orderLeft}>
+<TouchableOpacity style={styles.backBtn}>
+<Ionicons name="arrow-back" size={18} color="white" />
+</TouchableOpacity>
 
+<View>
+<Text style={styles.orderTitle}>My Orders</Text>
+<Text style={styles.subHeader}>ORDER HISTORY & TRACKING</Text>
 </View>
-
-<Ionicons name="trash-outline" size={18} color="gray"/>
+</View>
 
 </View>
 
+{/* SEARCH */}
+<View style={styles.searchBar}>
+<Ionicons name="search" size={18} color="gray"/>
+<TextInput
+placeholder="Search by Order ID or Item..."
+placeholderTextColor="gray"
+style={styles.searchInput}
+/>
+<TouchableOpacity style={styles.filterBtn}>
+<Ionicons name="options-outline" size={18} color="white"/>
+</TouchableOpacity>
+</View>
+
+{/* LIST */}
+<FlatList
+data={orders}
+renderItem={renderItem}
+keyExtractor={(item)=>item.id}
+showsVerticalScrollIndicator={false}
+/>
+
+</SafeAreaView>
 );
 }
-
 
 const styles = StyleSheet.create({
 
 container:{
 flex:1,
-backgroundColor:"#0b0f16",
-paddingHorizontal:16
+backgroundColor:"#0c0f14",
+padding:16
 },
 
 header:{
+marginBottom:16
+},
+
+navBar:{
 flexDirection:"row",
 justifyContent:"space-between",
 alignItems:"center",
-marginTop:10
+height:50
 },
 
-brandRow:{
+titleContainer:{
+flex:1,
+marginLeft:8
+},
+
+brandTitle:{
+color:"white",
+fontSize:20,
+fontWeight:"bold"
+},
+
+brandSubtitle:{
+color:"gray",
+fontSize:10,
+},
+
+orderLeft:{
 flexDirection:"row",
-alignItems:"center"
+alignItems:"center",
+marginTop:16
 },
 
-logo:{
-width:36,
-height:36,
-borderRadius:18,
-backgroundColor:"#e53935",
-justifyContent:"center",
-alignItems:"center",
+backBtn:{
+backgroundColor:"#1a1d24",
+padding:8,
+borderRadius:12,
 marginRight:10
 },
 
-logoText:{
-color:"white",
-fontWeight:"bold"
-},
-
-brand:{
-color:"white",
-fontWeight:"bold"
-},
-
-subBrand:{
-color:"gray",
-fontSize:10
-},
-
-notification:{
-position:"relative"
-},
-
-dot:{
-position:"absolute",
-top:-2,
-right:-2,
-width:8,
-height:8,
-backgroundColor:"red",
-borderRadius:4
-},
-
-cartHeader:{
-flexDirection:"row",
-justifyContent:"space-between",
-alignItems:"center",
-marginTop:20
-},
-
-cartLeft:{
-flexDirection:"row",
-alignItems:"center"
-},
-
-cartTitle:{
+orderTitle:{
 color:"white",
 fontSize:18,
-marginLeft:10
+fontWeight:"bold"
 },
 
-clear:{
-color:"#aaa"
-},
-
-card:{
-flexDirection:"row",
-backgroundColor:"#1a1f27",
-padding:14,
-borderRadius:18,
-marginTop:16,
-alignItems:"center"
-},
-
-image:{
-width:70,
-height:70,
-borderRadius:12,
-marginRight:12
-},
-
-itemTitle:{
-color:"white",
-fontSize:14,
-fontWeight:"600"
-},
-
-stockRow:{
-flexDirection:"row",
-alignItems:"center",
-marginTop:4
-},
-
-greenDot:{
-width:6,
-height:6,
-backgroundColor:"#22c55e",
-borderRadius:3,
-marginRight:5
-},
-
-stock:{
-color:"#aaa",
+subHeader:{
+color:"gray",
 fontSize:11
 },
 
-priceLabel:{
-color:"#777",
-fontSize:10,
-marginTop:6
-},
-
-priceRow:{
+searchBar:{
 flexDirection:"row",
-justifyContent:"space-between",
+backgroundColor:"#1a1d24",
+borderRadius:20,
+padding:12,
 alignItems:"center",
-marginTop:2
+marginBottom:20
 },
 
-price:{
+searchInput:{
+marginLeft:10,
 color:"white",
-fontSize:16,
-fontWeight:"bold"
+flex:1
 },
 
-qtyBox:{
-flexDirection:"row",
-backgroundColor:"#0e1218",
-paddingHorizontal:8,
-paddingVertical:4,
-borderRadius:10,
-alignItems:"center"
+filterBtn:{
+marginLeft:10,
+backgroundColor:"#2a2f3a",
+padding:8,
+borderRadius:10
 },
 
-qtyBtn:{
-color:"white",
-fontSize:16,
-paddingHorizontal:6
+card:{
+padding:18,
+borderRadius:22,
+marginBottom:18,
+borderWidth:1,
+borderColor:"rgba(255,255,255,0.08)"
 },
 
-qty:{
-color:"white"
-},
-
-promoCard:{
-backgroundColor:"#1a1f27",
-borderRadius:16,
-padding:16,
-marginTop:20
-},
-
-promoTitle:{
-color:"#aaa",
-fontSize:11,
-marginBottom:10
-},
-
-promoRow:{
-flexDirection:"row"
-},
-
-promoInput:{
-flex:1,
-backgroundColor:"#0e1218",
-borderRadius:10,
-padding:10,
-color:"white"
-},
-
-applyBtn:{
-backgroundColor:"#444",
-paddingHorizontal:16,
-justifyContent:"center",
-borderRadius:10,
-marginLeft:10
-},
-
-applyText:{
-color:"white"
-},
-
-summaryCard:{
-backgroundColor:"#14181f",
-borderRadius:16,
-padding:16,
-marginTop:20
-},
-
-row:{
+topRow:{
 flexDirection:"row",
 justifyContent:"space-between",
-marginBottom:8
+alignItems:"flex-start"
 },
 
-label:{
-color:"#aaa"
+orderMeta:{
+color:"gray",
+fontSize:12,
+marginBottom:4
 },
 
-value:{
-color:"white"
-},
-
-checkoutBtn:{
-marginTop:20,
-padding:16,
-borderRadius:14,
-flexDirection:"row",
-justifyContent:"space-between",
-alignItems:"center"
-},
-
-checkoutText:{
+title:{
 color:"white",
-fontWeight:"bold",
-fontSize:16
+fontSize:17,
+fontWeight:"600"
 },
 
-itemsBadge:{
-backgroundColor:"rgba(255,255,255,0.2)",
+statusBadge:{
 paddingHorizontal:10,
 paddingVertical:4,
 borderRadius:10
 },
 
-badgeText:{
+statusText:{
+color:"black",
+fontSize:11,
+fontWeight:"600"
+},
+
+imageRow:{
+flexDirection:"row",
+marginTop:14,
+alignItems:"center"
+},
+
+productImage:{
+width:46,
+height:46,
+borderRadius:10,
+marginRight:8,
+resizeMode:"cover"
+},
+
+extraBox:{
+width:46,
+height:46,
+borderRadius:10,
+backgroundColor:"#2a2f3a",
+justifyContent:"center",
+alignItems:"center",
+marginLeft:2
+},
+
+extraText:{
+color:"white"
+},
+
+divider:{
+height:1,
+backgroundColor:"rgba(255,255,255,0.08)",
+marginVertical:14
+},
+
+bottomRow:{
+flexDirection:"row",
+justifyContent:"space-between",
+alignItems:"center"
+},
+
+total:{
+color:"gray",
+fontSize:11
+},
+
+amount:{
 color:"white",
-fontSize:12
+fontSize:18,
+fontWeight:"bold"
+},
+
+invoiceBtn:{
+flexDirection:"row",
+backgroundColor:"#22262f",
+paddingHorizontal:14,
+paddingVertical:8,
+borderRadius:12,
+alignItems:"center"
+},
+
+invoiceText:{
+color:"white",
+marginLeft:6
 }
 
 });

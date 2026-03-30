@@ -93,7 +93,7 @@ export default function ProfileScreen() {
               US - 8821 - 990 - X
             </Text>
 
-            <Ionicons name="copy-outline" size={18} color="gray"/>
+            <Ionicons name="card-outline" size={18} color="gray"/>
           </View>
 
         </View>
@@ -102,10 +102,15 @@ export default function ProfileScreen() {
         {/* Billing Address */}
         <View style={styles.infoCard}>
 
+          <View style={styles.row}>
+            
           <Text style={styles.label}>
             PRIMARY BILLING ADDRESS
           </Text>
 
+            <Ionicons name="business" size={18} color="gray"/>
+
+          </View>
           <Text style={styles.value}>
             Grand Plaza HQ, Finance Dept.
           </Text>
@@ -130,21 +135,21 @@ export default function ProfileScreen() {
 
         <View style={styles.quickRow}>
 
-          <View style={styles.quickCard}>
+          <TouchableOpacity style={styles.quickCard}>
             <MaterialIcons name="local-shipping" size={28} color="red"/>
             <Text style={styles.quickText}>Add Shipping Address</Text>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.quickCard}>
+          <TouchableOpacity style={styles.quickCard}>
             <MaterialIcons name="credit-card" size={26} color="red"/>
             <Text style={styles.quickText}>Add Payment Method</Text>
-          </View>
+          </TouchableOpacity>
 
         </View>
 
 
         {/* Business Unit */}
-        <View style={styles.linkCard}>
+        <TouchableOpacity style={styles.linkCard}>
 
           <MaterialIcons name="business" size={24} color="red"/>
 
@@ -160,7 +165,7 @@ export default function ProfileScreen() {
 
           <Ionicons name="chevron-forward" size={22} color="gray"/>
 
-        </View>
+        </TouchableOpacity>
 
       </ScrollView>
 
@@ -174,7 +179,8 @@ const styles = StyleSheet.create({
 container:{
 flex:1,
 backgroundColor:"#0c1016",
-paddingHorizontal:16
+paddingHorizontal:16,
+paddingBottom:9
 },
 
 topHeader:{

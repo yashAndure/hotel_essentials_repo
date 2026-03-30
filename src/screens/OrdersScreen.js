@@ -63,7 +63,7 @@ if(status==="Delivered") return "#22c55e";
 };
 
 const renderItem = ({item}) =>(
-
+<TouchableOpacity activeOpacity={0.85}>
 <LinearGradient
 colors={["rgba(255,255,255,0.08)","rgba(255,255,255,0.02)"]}
 style={styles.card}
@@ -116,22 +116,53 @@ style={styles.card}
 </View>
 
 </LinearGradient>
+</TouchableOpacity>
 );
 
 return(
 
 <SafeAreaView style={styles.container}>
 
-<View style={styles.header}>
-
-<Ionicons name="arrow-back" size={24} color="white"/>
-
 <View>
-<Text style={styles.headerTitle}>My Orders</Text>
-<Text style={styles.subHeader}>ORDER HISTORY & TRACKING</Text>
+
+  <View>
+ <View style={styles.navBar}>
+
+  <View style={styles.iconBox}>
+    <Ionicons name="menu" size={24} color="white" />
+  </View>
+
+  <Text style={styles.navTitle}>Hotel Essential</Text>
+  
+  <View style={styles.iconBox}>
+    <Ionicons name="notifications-outline" size={22} color="white" />
+  </View>
+
+</View>
+  <View style={styles.brandHeader}>
+    <Text style={styles.brandSubtitle}>ELITE HOSPITALITY SUPPLY</Text>
+  </View>
+
 </View>
 
-<Ionicons name="options-outline" size={22} color="white"/>
+  <View style={styles.orderHeader}>
+
+    <View style={styles.orderLeft}>
+      
+      <TouchableOpacity style={styles.backBtn}>
+        <Ionicons name="arrow-back" size={18} color="white" />
+      </TouchableOpacity>
+
+      <View>
+        <Text style={styles.orderTitle}>My Orders</Text>
+        <Text style={styles.subHeader}>ORDER HISTORY & TRACKING</Text>
+      </View>
+
+    </View>
+
+    
+
+  </View>
 
 </View>
 
@@ -142,6 +173,11 @@ placeholder="Search by Order ID or Item..."
 placeholderTextColor="gray"
 style={styles.searchInput}
 />
+<TouchableOpacity
+style={styles.filterBtn}>
+    <Ionicons name="options-outline"
+    size={18} color="white"/>
+</TouchableOpacity>
 </View>
 
 <FlatList
@@ -163,17 +199,29 @@ backgroundColor:"#0c0f14",
 padding:16
 },
 
-header:{
-flexDirection:"row",
-justifyContent:"space-between",
-alignItems:"center",
-marginBottom:20
+orderHeader:{
+  flexDirection:"row",
+  justifyContent:"space-between",
+  alignItems:"center",
+  marginBottom:16
 },
 
-headerTitle:{
-color:"white",
-fontSize:20,
-fontWeight:"bold"
+orderLeft:{
+  flexDirection:"row",
+  alignItems:"center"
+},
+
+backBtn:{
+  backgroundColor:"#1a1d24",
+  padding:8,
+  borderRadius:12,
+  marginRight:10
+},
+
+orderTitle:{
+  color:"white",
+  fontSize:18,
+  fontWeight:"bold"
 },
 
 subHeader:{
@@ -194,6 +242,13 @@ searchInput:{
 marginLeft:10,
 color:"white",
 flex:1
+},
+
+filterBtn:{
+    marginLeft:10,
+    backgroundColor:"#2a2f3a",
+    padding:8,
+    borderRadius:10
 },
 
 card:{
@@ -221,6 +276,48 @@ color:"white",
 fontSize:17,
 fontWeight:"600"
 },
+navBar:{
+  flexDirection:"row",
+  justifyContent:"space-between",
+  alignItems:"center",
+  height:50
+},
+
+navTitle:{
+    position:"absolute",
+    left:0,
+    right:0,
+    bottom:0,
+    top:0,
+    textAlignVertical:"center",
+  color:"white",
+  paddingLeft:35,
+  fontSize:18,
+  fontWeight:"600"
+},
+
+iconBox:{
+    width:40,
+    height:40,
+    justifyContent:"center",
+    alignItems:"center"
+},
+
+brandHeader:{
+  marginTop:6,
+  marginBottom:20
+},
+
+brandTitle:{
+  color:"white",
+  fontSize:26,
+  fontWeight:"bold"
+},
+
+brandSubtitle:{
+  color:"gray",
+  fontSize:12,
+},
 
 statusBadge:{
 paddingHorizontal:10,
@@ -236,14 +333,16 @@ fontWeight:"600"
 
 imageRow:{
 flexDirection:"row",
-marginTop:14
+marginTop:14,
+alignItems:"center",
 },
 
 productImage:{
 width:46,
 height:46,
 borderRadius:10,
-marginRight:10
+marginRight:8,
+resizeMode:"cover"
 },
 
 extraBox:{
@@ -252,7 +351,8 @@ height:46,
 borderRadius:10,
 backgroundColor:"#2a2f3a",
 justifyContent:"center",
-alignItems:"center"
+alignItems:"center",
+marginLeft:2
 },
 
 extraText:{
