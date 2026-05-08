@@ -1,149 +1,178 @@
-import React from "react";
-import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  FlatList,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function HomeScreen() {
+const { width } = Dimensions.get('window');
+const isMobile = width < 600;
+
+const categories = [
+  { id: 1, title: 'Cookware', image: require('../../assets/cookware.jpeg') },
+  { id: 2, title: 'Plumbing', image: require('../../assets/plumbing.jpeg') },
+  { id: 3, title: 'Prep', image: require('../../assets/prep.jpeg') },
+  { id: 4, title: 'Furniture', image: require('../../assets/furniture.jpeg') },
+  { id: 5, title: 'Apparel', image: require('../../assets/apparel.jpeg') },
+  { id: 6, title: 'View All', image: require('../../assets/viewall.jpeg') },
+];
+
+function CategoryCard({ item }) {
   return (
-    <View style={{ flex: 1, backgroundColor: "#0F172A", padding: 15 }}>
-      {/* Header */}
-      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
-        <Image
-          source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }}
-          style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }}
-        />
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: "#fff", fontWeight: "bold" }}>Hotel Essentials</Text>
-          <Text style={{ color: "#94A3B8", fontSize: 12 }}>Find premium inventory</Text>
-        </View>
-        <Ionicons name="notifications-outline" size={22} color="white" />
-      </View>
-
-      {/* Search */}
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: "#1E293B",
-          borderRadius: 12,
-          paddingHorizontal: 10,
-          alignItems: "center",
-          marginBottom: 15,
-        }}
-      >
-        <Ionicons name="search" size={18} color="#94A3B8" />
-        <TextInput
-          placeholder="Search premium inventory..."
-          placeholderTextColor="#94A3B8"
-          style={{ flex: 1, marginLeft: 10, color: "white" }}
-        />
-      </View>
-
-      {/* Filters */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 15 }}>
-        {["All", "Kitchen", "Tableware", "Liners"].map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{
-              backgroundColor: index === 0 ? "#EF4444" : "#1E293B",
-              paddingHorizontal: 15,
-              paddingVertical: 8,
-              borderRadius: 20,
-              marginRight: 10,
-            }}
-          >
-            <Text style={{ color: "white" }}>{item}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Trending */}
-        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
-          Trending
-        </Text>
-
-        <View style={{ flexDirection: "row", marginBottom: 20 }}>
-          {/* Big Card */}
-          <View style={{ flex: 1, marginRight: 10 }}>
-            <Image
-              source={{ uri: "https://images.unsplash.com/photo-1586201375761-83865001e31c" }}
-              style={{ width: "100%", height: 160, borderRadius: 15 }}
-            />
-            <Text style={{ color: "white", marginTop: 8, fontWeight: "bold" }}>
-              Ovens & Ranges
-            </Text>
-            <Text style={{ color: "#94A3B8", fontSize: 12 }}>
-              Premium professional kitchen
-            </Text>
+    <View style={styles.gridItem}>
+      {/* Navigation removed, styling & touch feedback preserved */}
+      <TouchableOpacity activeOpacity={0.9}>
+        <ImageBackground
+          source={item.image}
+          style={styles.catImage}
+          imageStyle={{ borderRadius: 16 }}
+        >
+          <View style={styles.overlay}>
+            <Text style={styles.gridText}>{item.title}</Text>
           </View>
-
-          {/* Side Cards */}
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View>
-              <Image
-                source={{ uri: "https://images.unsplash.com/photo-1604908176997-4317f6f1e8d1" }}
-                style={{ width: "100%", height: 70, borderRadius: 12 }}
-              />
-              <Text style={{ color: "white", fontSize: 12 }}>Cooking</Text>
-            </View>
-            <View>
-              <Image
-                source={{ uri: "https://images.unsplash.com/photo-1583778176476-4a8b02a64c23" }}
-                style={{ width: "100%", height: 70, borderRadius: 12 }}
-              />
-              <Text style={{ color: "white", fontSize: 12 }}>Cutlery</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Categories */}
-        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
-          Categories
-        </Text>
-
-        <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
-          {[
-            { name: "Cookware", img: "https://images.unsplash.com/photo-1584990347449-a9f3d1a1e54f" },
-            { name: "Plumbing", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952" },
-            { name: "Prep", img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea" },
-            { name: "Furniture", img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511" },
-            { name: "Apparel", img: "https://images.unsplash.com/photo-1521334884684-d80222895322" },
-          ].map((item, index) => (
-            <View
-              key={index}
-              style={{
-                width: "48%",
-                backgroundColor: "#1E293B",
-                borderRadius: 15,
-                padding: 10,
-                marginBottom: 10,
-              }}
-            >
-              <Image
-                source={{ uri: item.img }}
-                style={{ width: "100%", height: 80, borderRadius: 10 }}
-              />
-              <Text style={{ color: "white", marginTop: 5 }}>{item.name}</Text>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-
-      {/* Bottom Nav */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          paddingVertical: 10,
-          borderTopWidth: 1,
-          borderTopColor: "#1E293B",
-        }}
-      >
-        <Ionicons name="home" size={22} color="#EF4444" />
-        <Ionicons name="search" size={22} color="#94A3B8" />
-        <Ionicons name="cart" size={22} color="#94A3B8" />
-        <Ionicons name="grid" size={22} color="#94A3B8" />
-        <Ionicons name="person" size={22} color="#94A3B8" />
-      </View>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
   );
 }
+
+export default function CatalogScreen() {
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
+      {/* --- HEADER SECTION --- */}
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.headerTitle}>Hotel Essentials</Text>
+          <Text style={styles.headerSubtitle}>ELITE HOSPITALITY SUPPLY</Text>
+        </View>
+        <TouchableOpacity style={styles.notificationBtn}>
+          <Ionicons name="notifications-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Search */}
+      <View style={styles.searchContainer}>
+        <Ionicons name="search" size={20} color="#aaa" />
+        <TextInput
+          placeholder="Search premium inventory..."
+          placeholderTextColor="#aaa"
+          style={styles.input}
+        />
+        <TouchableOpacity>
+          <Ionicons name="options-outline" size={22} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+      {/* View Reports */}
+      <TouchableOpacity style={styles.reportBtn}>
+        <Text style={styles.reportText}>View Reports</Text>
+      </TouchableOpacity>
+
+      <FlatList
+        data={categories}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={isMobile ? 2 : 3}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.heading}>Trending</Text>
+
+            {/* BIG CARD */}
+            <TouchableOpacity
+              style={styles.bigCard}
+              activeOpacity={0.9}
+            >
+              <ImageBackground
+                source={require('../../assets/oven.jpeg')}
+                style={styles.bigImage}
+                imageStyle={{ borderRadius: 18 }}
+              >
+                <View style={styles.overlayBig}>
+                  <Text style={styles.cardTitle}>Ovens & Ranges</Text>
+                  <Text style={styles.cardDesc}>
+                    Experience professional grade culinary heat designed for high-volume service.
+                  </Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+
+            <View style={styles.row}>
+              {/* SMALL CARD 1 */}
+              <TouchableOpacity style={styles.smallCard}>
+                <ImageBackground
+                  source={require('../../assets/cooling.jpeg')}
+                  style={styles.smallImage}
+                  imageStyle={{ borderRadius: 16 }}
+                >
+                  <View style={styles.smallTextContainer}>
+                    <Text style={styles.smallText}>Cooling</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+
+              {/* SMALL CARD 2 */}
+              <TouchableOpacity style={styles.smallCard}>
+                <ImageBackground
+                  source={require('../../assets/cutlery.jpeg')}
+                  style={styles.smallImage}
+                  imageStyle={{ borderRadius: 16 }}
+                >
+                  <View style={styles.smallTextContainer}>
+                    <Text style={styles.smallText}>Cutlery</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.catHeader}>
+              <Text style={styles.heading}>Categories</Text>
+              <TouchableOpacity>
+                <Text style={styles.seeAll}>See All</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        }
+        renderItem={({ item }) => <CategoryCard item={item} />}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0d0f14', padding: 16 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, marginBottom: 20 },
+  headerTitle: { color: '#fff', fontSize: 20, fontWeight: '800', letterSpacing: 0.5 },
+  headerSubtitle: { color: '#8e8e93', fontSize: 10, fontWeight: '600', marginTop: 2, letterSpacing: 1.2, textTransform: 'uppercase' },
+  notificationBtn: { padding: 4 },
+  searchContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1a1d24', borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 16 },
+  input: { flex: 1, marginLeft: 8, color: '#fff', fontSize: 16 },
+  reportBtn: { backgroundColor: '#ff4d4d', padding: 12, borderRadius: 12, alignItems: 'center', marginBottom: 16 },
+  reportText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  heading: { color: '#fff', fontSize: 22, marginVertical: 12, fontWeight: '700' },
+  bigCard: { marginBottom: 16 },
+  bigImage: { height: isMobile ? 180 : 260, justifyContent: 'flex-end' },
+  overlayBig: { backgroundColor: 'rgba(0,0,0,0.6)', padding: 16, borderBottomLeftRadius: 18, borderBottomRightRadius: 18 },
+  cardTitle: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
+  cardDesc: { color: '#ccc', fontSize: 13, marginTop: 4, lineHeight: 18 },
+  row: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
+  smallCard: { flex: 1, marginHorizontal: 4 },
+  smallImage: { height: 120, justifyContent: 'flex-end' },
+  smallTextContainer: { backgroundColor: 'rgba(0,0,0,0.5)', padding: 10, borderBottomLeftRadius: 16, borderBottomRightRadius: 16 },
+  smallText: { color: '#fff', fontWeight: '600' },
+  catHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
+  seeAll: { color: '#ff4d4d', fontWeight: '600', fontSize: 14 },
+  gridItem: { flex: 1, margin: 6 },
+  catImage: { height: isMobile ? 120 : 160, width: '100%', justifyContent: 'flex-end' },
+  overlay: { backgroundColor: 'rgba(0,0,0,0.5)', padding: 10, borderBottomLeftRadius: 16, borderBottomRightRadius: 16 },
+  gridText: { color: '#fff', fontWeight: 'bold', fontSize: 14 }
+});
