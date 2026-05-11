@@ -13,7 +13,6 @@ import {
 import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-// OPTIMIZED: Small resolutions (w=400, q=60) for fast loading lists
 const hotEquipment = [
   { id: "1", name: "Deep Fryer", image: "https://images.unsplash.com/photo-1626804475297-41609ea004eb?auto=format&fit=crop&w=400&q=60", price: "$1,200.00" },
   { id: "2", name: "Griller", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=60", price: "$850.00" },
@@ -47,7 +46,6 @@ const quickOrders = [
 export default function HomeScreen() {
   const navigation = useNavigation();
 
-  // FEATURED PRODUCTS (Clickable)
   const renderProduct = ({ item }) => (
     <TouchableOpacity 
       style={styles.productCard}
@@ -92,9 +90,6 @@ export default function HomeScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         
-        {/* ========================================= */}
-        {/* CATEGORIES SECTION (Updated Navigation) */}
-        {/* ========================================= */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categories}>
           {categories.map((item, index) => (
             <TouchableOpacity 
@@ -116,7 +111,6 @@ export default function HomeScreen() {
           ))}
         </ScrollView>
 
-        {/* Banner */}
         <ImageBackground 
           source={{ uri: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=60" }} 
           style={styles.banner} 
@@ -132,7 +126,6 @@ export default function HomeScreen() {
           </View>
         </ImageBackground>
 
-        {/* QUICK REORDER */}
         <View style={styles.quickHeader}>
           <Text style={styles.sectionTitle}>Quick Reorder</Text>
           <TouchableOpacity><Text style={styles.viewHistory}>VIEW HISTORY</Text></TouchableOpacity>
@@ -164,11 +157,9 @@ export default function HomeScreen() {
           )}
         />
 
-        {/* Featured Products */}
         <Text style={styles.sectionTitle}>Featured Products</Text>
         <FlatList data={products} renderItem={renderProduct} keyExtractor={(item) => item.id} horizontal showsHorizontalScrollIndicator={false} />
 
-        {/* HOT EQUIPMENT */}
         <View style={styles.sectionHeaderRow}>
           <Text style={styles.equipmentSectionTitle}>HOT EQUIPMENT</Text>
           <TouchableOpacity><Text style={styles.viewMoreText}>View More ›</Text></TouchableOpacity>
@@ -200,7 +191,6 @@ export default function HomeScreen() {
           ))}
         </ScrollView>
 
-        {/* COLD EQUIPMENT */}
         <View style={styles.sectionHeaderRow}>
           <Text style={styles.equipmentSectionTitle}>COLD EQUIPMENT</Text>
           <TouchableOpacity><Text style={styles.viewMoreText}>View More ›</Text></TouchableOpacity>
@@ -232,7 +222,6 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        {/* PRODUCT SHOWCASE CARD */}
         <View style={styles.showcaseCard}>
           <View style={styles.showcaseInner}>
             <Image source={{ uri: "https://images.unsplash.com/photo-1571172964276-91faaa704e1b?auto=format&fit=crop&w=600&q=60" }} style={styles.showcaseImage} />
@@ -255,7 +244,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
         
-        {/* Bottom padding for tabs */}
         <View style={{ height: 40 }} />
       </ScrollView>
     </View>

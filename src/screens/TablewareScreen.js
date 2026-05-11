@@ -73,7 +73,6 @@ export default function TablewareScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.menuBtn}>
           <Ionicons name="menu" size={28} color="white" />
@@ -85,7 +84,6 @@ export default function TablewareScreen({ navigation }) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Hero Banner */}
         <ImageBackground
           source={{ uri: "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80" }}
           style={styles.heroBanner}
@@ -102,7 +100,6 @@ export default function TablewareScreen({ navigation }) {
           </LinearGradient>
         </ImageBackground>
 
-        {/* Categories / Tabs */}
         <ScrollView 
           horizontal 
           showsHorizontalScrollIndicator={false} 
@@ -124,7 +121,6 @@ export default function TablewareScreen({ navigation }) {
           })}
         </ScrollView>
 
-        {/* Section Header */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Featured Selections</Text>
           <TouchableOpacity>
@@ -132,7 +128,6 @@ export default function TablewareScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Product List */}
         <FlatList
           data={PRODUCTS}
           renderItem={renderProduct}
@@ -141,7 +136,6 @@ export default function TablewareScreen({ navigation }) {
           contentContainerStyle={styles.listContainer}
         />
         
-        {/* Bottom padding for tab bar spacing */}
         <View style={{ height: 40 }} />
       </ScrollView>
     </SafeAreaView>

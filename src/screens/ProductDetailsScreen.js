@@ -11,10 +11,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProductDetailsScreen({ route, navigation }) {
-  // Extract product passed from Home/Catalog. Added fallback {} to prevent crashes.
   const { product } = route.params || {};
 
-  // Check if the image is a local require() number or a web URI string
   const imageSource = product?.image 
     ? (typeof product.image === 'string' ? { uri: product.image } : product.image) 
     : { uri: "https://images.unsplash.com/photo-1511920170033-f8396924c348" };
@@ -23,7 +21,6 @@ export default function ProductDetailsScreen({ route, navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        {/* Header */}
         <View style={styles.header}>
           <View>
             <Text style={styles.appTitle}>Hotel Essentials</Text>
@@ -32,7 +29,6 @@ export default function ProductDetailsScreen({ route, navigation }) {
           <Ionicons name="notifications-outline" size={24} color="white" />
         </View>
 
-        {/* Product Image */}
         <View style={styles.imageContainer}>
           <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={20} color="white" />
@@ -45,7 +41,6 @@ export default function ProductDetailsScreen({ route, navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Product Info */}
         <View style={styles.infoContainer}>
           <View style={styles.row}>
             <Text style={styles.stock}>{product?.status || "IN STOCK"}</Text>
@@ -60,17 +55,14 @@ export default function ProductDetailsScreen({ route, navigation }) {
             {product?.description || "Professional grade equipment for elite hospitality."}
           </Text>
 
-          {/* Bulk Pricing */}
           <Text style={styles.bulkTitle}>Pricing</Text>
           <View style={styles.priceRow}>
-            {/* Standard */}
             <View style={styles.priceCard}>
               <Text style={styles.priceType}>STANDARD</Text>
               <Text style={styles.price}>{product?.price || "$0.00"}</Text>
               <Text style={styles.unit}>/unit</Text>
             </View>
 
-            {/* Discount */}
             <View style={styles.priceCardActive}>
               <Text style={styles.priceType}>5-10 UNITS</Text>
               <Text style={styles.price}>Call for Quote</Text>
@@ -78,19 +70,16 @@ export default function ProductDetailsScreen({ route, navigation }) {
             </View>
           </View>
 
-          {/* Specifications */}
           <TouchableOpacity style={styles.optionRow}>
             <Text style={styles.optionText}>Specifications</Text>
             <Ionicons name="chevron-down" size={20} color="white" />
           </TouchableOpacity>
 
-          {/* Delivery */}
           <TouchableOpacity style={styles.optionRow}>
             <Text style={styles.optionText}>Delivery Info</Text>
             <Ionicons name="chevron-down" size={20} color="white" />
           </TouchableOpacity>
 
-          {/* Buttons */}
           <View style={styles.btnRow}>
             <TouchableOpacity style={styles.quoteBtn}>
               <Text style={styles.quoteText}>Request Quote</Text>

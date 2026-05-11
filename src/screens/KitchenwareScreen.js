@@ -67,7 +67,6 @@ export default function KitchenwareScreen({ navigation }) {
     >
       <View style={styles.imageWrapper}>
         <Image source={{ uri: item.image }} style={styles.productImage} />
-        {/* Price Tag Overlay */}
         <View style={styles.priceTag}>
           <Text style={styles.priceTagText}>{item.price}</Text>
         </View>
@@ -97,7 +96,6 @@ export default function KitchenwareScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.menuBtn}>
           <Ionicons name="menu" size={28} color="white" />
@@ -109,7 +107,6 @@ export default function KitchenwareScreen({ navigation }) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Hero Banner */}
         <ImageBackground
           source={{ uri: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80" }}
           style={styles.heroBanner}
@@ -126,7 +123,6 @@ export default function KitchenwareScreen({ navigation }) {
           </LinearGradient>
         </ImageBackground>
 
-        {/* Categories Section */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Categories</Text>
           <TouchableOpacity>
@@ -153,7 +149,6 @@ export default function KitchenwareScreen({ navigation }) {
           ))}
         </ScrollView>
 
-        {/* Essential Gear Section */}
         <View style={[styles.sectionHeader, styles.gearHeader]}>
           <Text style={styles.sectionTitle}>Essential Gear</Text>
           <View style={styles.gearActions}>
@@ -166,7 +161,6 @@ export default function KitchenwareScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Product List */}
         <FlatList
           data={ESSENTIAL_GEAR}
           renderItem={renderGearItem}
@@ -175,7 +169,6 @@ export default function KitchenwareScreen({ navigation }) {
           contentContainerStyle={styles.listContainer}
         />
         
-        {/* Bottom padding */}
         <View style={{ height: 40 }} />
       </ScrollView>
     </SafeAreaView>
@@ -306,7 +299,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: "100%",
     height: 220,
-    backgroundColor: "white", // To handle images with transparent backgrounds like the prep table
+    backgroundColor: "white",
     resizeMode: "cover",
   },
   priceTag: {

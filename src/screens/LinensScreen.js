@@ -45,7 +45,6 @@ const PRODUCTS = [
 export default function LinensScreen({ navigation }) {
   
   const renderProduct = ({ item }) => (
-    // CHANGED: View to TouchableOpacity with navigation
     <TouchableOpacity 
       style={styles.productCard}
       activeOpacity={0.9}
@@ -73,7 +72,6 @@ export default function LinensScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -87,7 +85,6 @@ export default function LinensScreen({ navigation }) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Hero Section */}
         <ImageBackground 
           source={{ uri: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80' }} 
           style={styles.heroImage}
@@ -104,7 +101,6 @@ export default function LinensScreen({ navigation }) {
           </LinearGradient>
         </ImageBackground>
 
-        {/* Sub-Categories horizontal list */}
         <ScrollView 
           horizontal 
           showsHorizontalScrollIndicator={false} 
@@ -121,7 +117,6 @@ export default function LinensScreen({ navigation }) {
           ))}
         </ScrollView>
 
-        {/* Product Grid (Single column for better native readability) */}
         <FlatList
           data={PRODUCTS}
           renderItem={renderProduct}
@@ -130,7 +125,6 @@ export default function LinensScreen({ navigation }) {
           contentContainerStyle={styles.listPadding}
         />
 
-        {/* Heritage Series Promo */}
         <View style={styles.promoCard}>
           <Image 
             source={{ uri: 'https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=800&q=80' }} 
@@ -152,7 +146,6 @@ export default function LinensScreen({ navigation }) {
           </View>
         </View>
         
-        {/* Bottom Padding for Nav Bar */}
         <View style={{ height: 100 }} />
       </ScrollView>
     </SafeAreaView>

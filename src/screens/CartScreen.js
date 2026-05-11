@@ -20,7 +20,7 @@ const INITIAL_CART = [
     stock: "In Stock",
     model: "Model XS500",
     price: 4200.00,
-    qty: 0 // Changed to 0
+    qty: 0 
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ const INITIAL_CART = [
     stock: "In Stock",
     model: "3HP Motor",
     price: 850.00,
-    qty: 0 // Changed to 0
+    qty: 0
   },
   {
     id: "3",
@@ -38,14 +38,13 @@ const INITIAL_CART = [
     stock: "Low Stock",
     model: "100% Cotton",
     price: 450.00,
-    qty: 0 // Changed to 0
+    qty: 0 
   }
 ];
 
 export default function CartScreen() {
   const [cartItems, setCartItems] = useState(INITIAL_CART);
 
-  // Actions
   const handleClearCart = () => setCartItems([]);
 
   const handleIncreaseQty = (id) => {
@@ -55,7 +54,6 @@ export default function CartScreen() {
   };
 
   const handleDecreaseQty = (id) => {
-    // Updated to allow decreasing down to 0 instead of 1
     setCartItems(prev => prev.map(item => 
       item.id === id && item.qty > 0 ? { ...item, qty: item.qty - 1 } : item
     ));
@@ -65,17 +63,13 @@ export default function CartScreen() {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
-  // Calculations
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
   const tax = subtotal * 0.085; // 8.5%
   
-  // Calculate total items currently selected (sum of all quantities)
   const totalItemsCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
   
-  // Only apply delivery charge if they are actually buying at least 1 item
   const deliveryCharge = totalItemsCount > 0 ? 150.00 : 0;
 
-  // Helper to format currency
   const formatCurrency = (amount) => {
     return "$" + amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
@@ -84,7 +78,6 @@ export default function CartScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        {/* Header */}
         <View style={styles.header}>
           <View style={styles.brandRow}>
             <View style={styles.logo}>
@@ -101,7 +94,6 @@ export default function CartScreen() {
           </View>
         </View>
 
-        {/* Cart Title */}
         <View style={styles.cartHeader}>
           <View style={styles.cartLeft}>
             <Ionicons name="arrow-back" size={22} color="white" />
@@ -112,7 +104,6 @@ export default function CartScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Cart Items List */}
         {cartItems.map((item) => (
           <CartItem 
             key={item.id} 
@@ -124,12 +115,10 @@ export default function CartScreen() {
           />
         ))}
 
-        {/* Show empty state message if cart is empty */}
         {cartItems.length === 0 && (
           <Text style={styles.emptyText}>Your cart is currently empty.</Text>
         )}
 
-        {/* Promo Code */}
         <View style={styles.promoCard}>
           <Text style={styles.promoTitle}>PURCHASE ORDER / PROMO CODE</Text>
           <View style={styles.promoRow}>
@@ -144,7 +133,6 @@ export default function CartScreen() {
           </View>
         </View>
 
-        {/* Price Summary */}
         <View style={styles.summaryCard}>
           <View style={styles.row}>
             <Text style={styles.label}>Subtotal</Text>
@@ -160,7 +148,6 @@ export default function CartScreen() {
           </View>
         </View>
 
-        {/* Checkout Button */}
         <TouchableOpacity disabled={totalItemsCount === 0}>
           <LinearGradient
             colors={totalItemsCount > 0 ? ["#ff4b4b", "#d62828"] : ["#444", "#333"]}

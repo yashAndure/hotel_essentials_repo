@@ -13,8 +13,7 @@ const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
-    // 1. WRAP THE NAVIGATOR IN A VIEW WITH YOUR APP'S BACKGROUND COLOR
-    // This fills in the empty space around the floating pill so cards don't show through.
+    
     <View style={{ flex: 1, backgroundColor: "#0B0E18" }}>
       <Tab.Navigator
         sceneContainerStyle={{ backgroundColor: "#0B0E18" }}
@@ -23,9 +22,7 @@ export default function TabNavigator() {
           tabBarActiveTintColor: "#E32F45",
           tabBarInactiveTintColor: "#7b809a",
           tabBarStyle: {
-            // 2. REMOVED position, bottom, left, and right
-            
-            // 3. ADDED MARGINS to create the floating pill effect naturally
+           
             marginBottom: 15, 
             marginHorizontal: 20,
             
@@ -34,22 +31,20 @@ export default function TabNavigator() {
             height: 70,
             borderTopWidth: 0,
             elevation: 5,
-            
-            // Added to ensure the red cart button can pop out the top without getting clipped
             overflow: "visible", 
           },
           tabBarLabelStyle: {
             fontSize: 10,
             fontWeight: "bold",
             textTransform: "uppercase",
-            paddingBottom: 5, // Shifted slightly to balance the lack of absolute positioning
+            paddingBottom: 5, 
           },
           tabBarItemStyle: {
             paddingTop: 10,
           },
 
           tabBarIcon: ({ color, size, focused }) => {
-            // --- CUSTOM MIDDLE BUTTON FOR CART ---
+           
             if (route.name === "Cart") {
               return (
                 <View style={styles.customCartContainer}>
@@ -60,7 +55,6 @@ export default function TabNavigator() {
               );
             }
 
-            // --- STANDARD ICONS FOR OTHER TABS ---
             let iconName;
             if (route.name === "Home") {
               iconName = focused ? "home" : "home-outline";

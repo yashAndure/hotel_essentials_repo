@@ -17,7 +17,6 @@ export default function ProfileScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        {/* Top Header */}
         <View style={styles.topHeader}>
           <View style={styles.brandRow}>
 
@@ -34,7 +33,6 @@ export default function ProfileScreen() {
         </View>
 
 
-        {/* Profile Header */}
         <View style={styles.profileHeader}>
           <TouchableOpacity>
             <Ionicons name="arrow-back" size={22} color="white"/>
@@ -48,7 +46,6 @@ export default function ProfileScreen() {
         </View>
 
 
-        {/* Profile Card */}
         <LinearGradient
           colors={["#1d2430","#0e131a"]}
           style={styles.profileCard}
@@ -79,11 +76,9 @@ export default function ProfileScreen() {
         </LinearGradient>
 
 
-        {/* Business Information */}
         <Text style={styles.sectionTitle}>Business Information</Text>
 
 
-        {/* Tax ID */}
         <View style={styles.infoCard}>
 
           <Text style={styles.label}>TAX ID</Text>
@@ -99,7 +94,6 @@ export default function ProfileScreen() {
         </View>
 
 
-        {/* Billing Address */}
         <View style={styles.infoCard}>
 
           <View style={styles.row}>
@@ -130,7 +124,6 @@ export default function ProfileScreen() {
         </View>
 
 
-        {/* Quick Actions */}
         <Text style={styles.sectionTitle}>Quick Actions</Text>
 
         <View style={styles.quickRow}>
@@ -148,7 +141,6 @@ export default function ProfileScreen() {
         </View>
 
 
-        {/* Business Unit */}
         <TouchableOpacity style={styles.linkCard}>
 
           <MaterialIcons name="business" size={24} color="red"/>

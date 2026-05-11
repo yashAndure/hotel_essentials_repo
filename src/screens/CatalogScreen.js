@@ -27,7 +27,6 @@ const categories = [
 function CategoryCard({ item }) {
   return (
     <View style={styles.gridItem}>
-      {/* Navigation removed, styling & touch feedback preserved */}
       <TouchableOpacity activeOpacity={0.9}>
         <ImageBackground
           source={item.image}
@@ -48,7 +47,6 @@ export default function CatalogScreen() {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
 
-      {/* --- HEADER SECTION --- */}
       <View style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Hotel Essentials</Text>
@@ -59,7 +57,6 @@ export default function CatalogScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Search */}
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color="#aaa" />
         <TextInput
@@ -72,7 +69,6 @@ export default function CatalogScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* View Reports */}
       <TouchableOpacity style={styles.reportBtn}>
         <Text style={styles.reportText}>View Reports</Text>
       </TouchableOpacity>
@@ -87,7 +83,6 @@ export default function CatalogScreen() {
           <>
             <Text style={styles.heading}>Trending</Text>
 
-            {/* BIG CARD */}
             <TouchableOpacity
               style={styles.bigCard}
               activeOpacity={0.9}
@@ -107,7 +102,6 @@ export default function CatalogScreen() {
             </TouchableOpacity>
 
             <View style={styles.row}>
-              {/* SMALL CARD 1 */}
               <TouchableOpacity style={styles.smallCard}>
                 <ImageBackground
                   source={require('../../assets/cooling.jpeg')}
@@ -120,7 +114,6 @@ export default function CatalogScreen() {
                 </ImageBackground>
               </TouchableOpacity>
 
-              {/* SMALL CARD 2 */}
               <TouchableOpacity style={styles.smallCard}>
                 <ImageBackground
                   source={require('../../assets/cutlery.jpeg')}
